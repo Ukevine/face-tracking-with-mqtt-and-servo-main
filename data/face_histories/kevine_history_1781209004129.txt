@@ -1,0 +1,28 @@
+================================================================================
+Face Locking Session History
+================================================================================
+Face Name: KEVINE
+Session Start: 2026-06-11 22:16:44.129
+File: kevine_history_1781209004129.txt
+================================================================================
+Format: [HH:MM:SS.mmm] ACTION_TYPE | description | confidence | value
+================================================================================
+
+[00:00:00.004] STATUS                | Target face selected: Kevine
+[00:00:06.455] STATUS                | Lock ACQUIRED for Kevine (confidence=0.683)
+[00:00:16.946] SMILE           | Smile/laugh detected (mouth height ratio: 2.25)    | conf=0.90 | val=2.2464
+[00:00:16.946] MOVE_RIGHT      | Head movement right (11.0px)                       | conf=0.55 | val=11.0114
+[00:00:17.601] SMILE           | Smile/laugh detected (mouth height ratio: 1.20)    | conf=0.90 | val=1.1976
+[00:00:22.125] SMILE           | Smile/laugh detected (mouth height ratio: 1.39)    | conf=0.90 | val=1.3947
+[00:00:22.947] MOVE_LEFT       | Head movement left (8.2px)                         | conf=0.41 | val=8.1863
+[00:00:24.752] MOVE_LEFT       | Head movement left (17.7px)                        | conf=0.88 | val=17.6997
+[00:00:25.571] SMILE           | Smile/laugh detected (mouth height ratio: 1.90)    | conf=0.90 | val=1.8985
+[00:01:57.899] STATUS                | Lock RE-ACQUIRED for Kevine
+[00:01:57.930] MOVE_LEFT       | Head movement left (10.6px)                        | conf=0.53 | val=10.6401
+[00:02:13.537] MOVE_LEFT       | Head movement left (40.1px)                        | conf=0.95 | val=40.0958
+[00:02:15.968] SMILE           | Smile/laugh detected (mouth height ratio: 1.91)    | conf=0.90 | val=1.9080
+
+================================================================================
+Session ended at 2026-06-11 22:19:00.630
+Total actions recorded: 10
+================================================================================

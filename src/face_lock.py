@@ -634,7 +634,7 @@ def main():
         print(f"✗ Face '{target}' not found. Try again.")
 
     # NOW open camera after selection
-    cap = cv2.videoCapture(0)
+    cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         raise RuntimeError("Camera not available")
     

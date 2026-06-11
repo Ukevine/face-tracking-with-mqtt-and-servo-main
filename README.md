@@ -4,7 +4,7 @@ A **research-grade, CPU-first face recognition system** with **advanced face loc
 
 Built for clarity, stability, and practical deployment on laptops without GPU acceleration.
 
-**Based on:** *Face Recognition with ArcFace ONNX and 5-Point Alignment* by Gabriel Baziramwabo (Rwanda Coding Academy)
+**Based on:** _Face Recognition with ArcFace ONNX and 5-Point Alignment_ by Gabriel Baziramwabo (Rwanda Coding Academy)
 
 **Extended with:** Face Locking, Action Detection, and Behavior History Tracking
 
@@ -28,6 +28,7 @@ Built for clarity, stability, and practical deployment on laptops without GPU ac
 ## ✨ Features
 
 ### Face Recognition Core
+
 - ✅ **CPU-Only Inference**: Runs efficiently on laptops without GPU
 - ✅ **5-Point Alignment**: Haar cascade detection + MediaPipe landmark extraction
 - ✅ **ArcFace ONNX Model**: 512-dimensional L2-normalized embeddings
@@ -38,6 +39,7 @@ Built for clarity, stability, and practical deployment on laptops without GPU ac
 - ✅ **Database Persistence**: JSON metadata + NPZ embeddings
 
 ### Face Locking (NEW)
+
 - ✅ **Identity-Specific Tracking**: Lock onto a single enrolled identity
 - ✅ **Stable Tracking**: Follow face across frames with timeout protection
 - ✅ **Action Detection**: Real-time blink, movement, and expression detection
@@ -52,7 +54,9 @@ Built for clarity, stability, and practical deployment on laptops without GPU ac
 Face Locking is a major extension that transforms the system from **recognition** to **tracking & behavior analysis**.
 
 ### Core Capability
+
 When an enrolled identity appears, the system:
+
 1. **Recognizes who they are**
 2. **Locks onto their face**
 3. **Tracks movements** in real-time
@@ -60,6 +64,7 @@ When an enrolled identity appears, the system:
 5. **Records everything** to a timestamped history file
 
 ### Use Cases
+
 - **Security**: Track suspects/intruders with action timeline
 - **HCI Research**: Monitor user attention and engagement
 - **Interview Analysis**: Record behavioral cues
@@ -67,12 +72,14 @@ When an enrolled identity appears, the system:
 - **Entertainment**: Real-time reaction detection
 
 ### Detected Actions
+
 - **Eye Blinks**: Rapid eye closure/opening
 - **Head Movement**: Left/right motion tracking
 - **Smiles/Laughs**: Mouth height increase
 - **Face Distance**: Moving closer/farther from camera
 
 ### Output Example
+
 ```
 [00:00:05.234] BLINK       | Eye blink detected | conf=0.85 | val=0.45
 [00:00:06.567] MOVE_RIGHT  | Head movement right (12.5px) | conf=0.92 | val=12.5
@@ -105,8 +112,8 @@ python3 --version  # Should show Python 3.9+
 
 ```bash
 cd /path/to/your/workspace
-git clone https://github.com/humuraelvin/Face-Recog-onnx.git
-cd Face-Recog-onnx
+git clone https://github.com/Ukevine/face-tracking-with-mqtt-and-servo-main
+cd face-tracking-with-mqtt-and-servo-main
 ```
 
 ### Step 2: Create Virtual Environment
@@ -118,11 +125,13 @@ python3.11 -m venv .venv
 ### Step 3: Activate Virtual Environment
 
 **macOS/Linux:**
+
 ```bash
 source .venv/bin/activate
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 .venv\Scripts\Activate
 ```
@@ -136,11 +145,13 @@ python -m pip install --upgrade pip
 ### Step 5: Install Dependencies
 
 Using `requirements.txt`:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 Or manually:
+
 ```bash
 pip install opencv-python numpy onnxruntime scipy tqdm mediapipe protobuf
 ```
@@ -255,6 +266,7 @@ python -m src.face_lock
 ```
 
 **Check History:**
+
 ```bash
 ls -lh data/face_histories/
 cat data/face_histories/gabi_history_*.txt
@@ -273,12 +285,14 @@ python -m src.camera
 ```
 
 **Expected Output:**
+
 - Live camera window opens
 - Smooth motion visible
 - FPS counter displayed
 - Press **q** to exit
 
 **Troubleshooting:**
+
 - If camera doesn't open, try changing camera index in code (0→1 or 0→2)
 - Check camera permissions (macOS: System Settings → Privacy & Security → Camera)
 
@@ -293,6 +307,7 @@ python -m src.detect
 ```
 
 **Expected Output:**
+
 - Face appears in bounding box (green rectangle)
 - Box follows face movement
 - Press **q** to exit
@@ -306,6 +321,7 @@ python -m src.landmarks
 ```
 
 **Expected Output:**
+
 - Green bounding box around face
 - 5 green points: left eye, right eye, nose, left mouth, right mouth
 - Press **q** to exit
@@ -321,12 +337,14 @@ python -m src.align
 ```
 
 **Expected Output:**
+
 - Left window: Original face with landmarks
 - Right window: Aligned 112×112 upright face
 - Press **q** to quit
 - Press **s** to save aligned image for debugging
 
 **What's Happening:**
+
 - Similarity transform (rotation + scale + translation) applied
 - Face rotated to canonical pose
 - Output always 112×112 pixels
@@ -342,6 +360,7 @@ python -m src.embed
 ```
 
 **Expected Output:**
+
 ```
 embedding dim: 512
 norm(before L2): 21.85
@@ -349,11 +368,13 @@ cos(prev,this): 0.988
 ```
 
 **Meaning:**
+
 - `embedding dim: 512` → ResNet-50 output size
 - `norm(before L2): 21.85` → Raw vector magnitude
 - `cos(prev,this): 0.988` → Cosine similarity between consecutive frames (should be ~0.99)
 
 **Controls:**
+
 - Press **q** to quit
 - Press **p** to print embedding statistics
 
@@ -368,12 +389,14 @@ python -m src.enroll
 ```
 
 **Workflow:**
+
 1. Enter person's name (e.g., "Alice", "Bob")
 2. Position face in camera
 3. Capture samples using controls below
 4. Press **s** to save and finalize enrollment
 
 **Controls:**
+
 - **SPACE** → Capture one sample manually
 - **a** → Toggle auto-capture (every 0.25 seconds)
 - **s** → Save enrollment (after ≥15 samples recommended)
@@ -381,6 +404,7 @@ python -m src.enroll
 - **q** → Quit without saving
 
 **Best Practices:**
+
 - Use consistent lighting
 - Vary head angle slightly (left/right/up/down)
 - Show different expressions (neutral, smile, serious)
@@ -388,6 +412,7 @@ python -m src.enroll
 - Enroll at least 10 different people for meaningful evaluation
 
 **Output:**
+
 - Aligned 112×112 crops saved to `data/enroll/<name>/`
 - Mean embedding saved to `data/db/face_db.npz`
 - Metadata saved to `data/db/face_db.json`
@@ -403,6 +428,7 @@ python -m src.evaluate
 ```
 
 **Expected Output:**
+
 ```
 === Distance Distributions (cosine distance = 1 - cosine similarity) ===
 Genuine (same person):  n=50 mean=0.345 std=0.087 p05=0.210 p50=0.328 p95=0.502
@@ -419,6 +445,7 @@ Suggested threshold (target FAR 1.0%): thr=0.34 FAR=1.00% FRR=10.00%
 ```
 
 **Interpretation:**
+
 - **Genuine distances** = same person pairs (should be small)
 - **Impostor distances** = different person pairs (should be large)
 - **FAR** (False Accept Rate) = wrongly accepting impostor as genuine
@@ -438,12 +465,14 @@ python -m src.recognize
 ```
 
 **Expected Output:**
+
 - Live camera feed with detected faces
 - Each face labeled with name or "Unknown"
 - Confidence score and similarity displayed
 - FPS counter in top-left
 
 **Controls:**
+
 - **q** → Quit
 - **r** → Reload database from disk
 - **+** → Loosen threshold (more accepts, more false positives)
@@ -451,6 +480,7 @@ python -m src.recognize
 - **d** → Toggle debug overlay
 
 **Behavior:**
+
 - Green box + green label = recognized (accepted)
 - Green box + red label = unknown (rejected)
 - Confidence bar shows similarity score
@@ -467,6 +497,7 @@ python -m src.face_lock
 ```
 
 **Workflow:**
+
 1. System shows available enrolled faces
 2. You select target identity (e.g., "Gabi")
 3. System enters **SEARCHING** state
@@ -481,10 +512,12 @@ python -m src.face_lock
 8. Lock released if face absent too long, or press **r**
 
 **Controls:**
+
 - **r** → Release lock manually
 - **q** → Quit and save history
 
 **Example Output:**
+
 ```
 Lock: LOCKED | Target: Gabi
 Conf: 0.92 | Time: 15.3s
@@ -492,6 +525,7 @@ Actions: blink | move_right | smile
 ```
 
 **History File Example:**
+
 ```
 [00:00:05.234] BLINK       | Eye blink detected | conf=0.85 | val=0.45
 [00:00:06.567] MOVE_RIGHT  | Head movement right (12.5px) | conf=0.92 | val=12.5
@@ -499,6 +533,7 @@ Actions: blink | move_right | smile
 ```
 
 **Check History:**
+
 ```bash
 # List all history files
 ls -lh data/face_histories/
@@ -574,17 +609,20 @@ Persistent File Storage
 ### Key Concepts
 
 **5-Point Alignment:**
+
 - Extracts: left eye, right eye, nose tip, left mouth, right mouth
 - Applies similarity transform (rotation + scale + translation)
 - Ensures consistent input to embedding model
 - Reduces intra-class variance, improves recognition
 
 **L2 Normalization:**
+
 - Embedding vector divided by its L2 norm
 - Results in unit vector (length = 1.0)
 - Enables cosine similarity = dot product
 
 **Cosine Distance:**
+
 - Distance = 1 - cosine_similarity
 - Range: 0 (identical) to 2 (opposite)
 - Threshold ~0.34 means similarity ~0.66
@@ -628,7 +666,7 @@ This phase extends the core face-locking system into a **distributed, Windows-ba
 - **Payload example**:
 
 ```json
-{"status":"MOVE_LEFT","confidence":0.87,"timestamp":1730000000}
+{ "status": "MOVE_LEFT", "confidence": 0.87, "timestamp": 1730000000 }
 ```
 
 Movement states: `MOVE_LEFT`, `MOVE_RIGHT`, `CENTERED`, `NO_FACE`.
@@ -757,17 +795,20 @@ Common checks:
 ### Issue: Camera doesn't open
 
 **Solution:**
+
 ```bash
 # Try different camera index
 python -m src.camera  # Try 0, 1, 2
 ```
 
 **macOS Fix:**
+
 - System Settings → Privacy & Security → Camera
 - Add Terminal or VS Code to allowed apps
 - Restart terminal
 
 **Linux Fix:**
+
 ```bash
 # Check camera permissions
 ls -la /dev/video0
@@ -780,6 +821,7 @@ sudo usermod -aG video $USER
 ### Issue: "No module named mediapipe"
 
 **Solution:**
+
 ```bash
 pip uninstall -y mediapipe
 pip install mediapipe==0.10.32
@@ -790,6 +832,7 @@ pip install mediapipe==0.10.32
 ### Issue: "Model not found: embedder_arcface.onnx"
 
 **Solution:**
+
 ```bash
 # Re-download and extract model
 curl -L -o buffalo_l.zip "https://sourceforge.net/projects/insightface.mirror/files/v0.7/buffalo_l.zip/download"
@@ -803,6 +846,7 @@ rm -f buffalo_l.zip w600k_r50.onnx 1k3d68.onnx 2d106det.onnx det_10g.onnx gender
 ### Issue: Recognition accuracy is poor
 
 **Solutions:**
+
 1. Enroll more samples (target: 20-30 per person)
 2. Vary lighting conditions during enrollment
 3. Re-evaluate threshold with more data
@@ -814,6 +858,7 @@ rm -f buffalo_l.zip w600k_r50.onnx 1k3d68.onnx 2d106det.onnx det_10g.onnx gender
 ### Issue: "Embedding norm is 1.0 but values seem wrong"
 
 **Check:**
+
 ```bash
 python -m src.embed
 # Press 'p' to print embedding details
@@ -826,11 +871,13 @@ python -m src.embed
 ## 📊 Database Format
 
 ### `face_db.npz`
+
 - NumPy archive storing name → embedding pairs
 - Each embedding is 512-dimensional, L2-normalized float32
 - Load with: `np.load('data/db/face_db.npz', allow_pickle=True)`
 
 ### `face_db.json`
+
 - Metadata file with enrollment info
 - Contains: timestamp, embedding dimension, enrolled names, sample counts
 
@@ -842,7 +889,7 @@ To adjust recognition parameters, edit `src/recognize.py`:
 
 ```python
 matcher = FaceDBMatcher(
-    db=db, 
+    db=db,
     dist_thresh=0.34  # ← Change this threshold
 )
 ```
@@ -897,5 +944,6 @@ A: ONNX Runtime supports mobile; would require porting to appropriate framework 
 ---
 
 **Ready to build your face recognition system?** Start with Step 1 in the [Installation](#installation) section! 🚀
-#   f a c e - t r a c k i n g - w i t h - m q t t - a n d - s e r v o - m a i n  
+#   f a c e - t r a c k i n g - w i t h - m q t t - a n d - s e r v o - m a i n 
+ 
  
